@@ -102,3 +102,7 @@ By managing study load and promoting better sleep routines, institutions can hel
 **Sasivadhan Kandregula**  
 Master’s in Computer Science | Seattle University  
 GitHub: [Sasivadhan163](https://github.com/Sasivadhan163)
+
+**Koushika Chappidi**  
+Master’s in Computer Science | Pace University  
+GitHub: [Sasivadhan163](https://github.com/koushikachappidi-3)
