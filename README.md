@@ -211,4 +211,5 @@ GitHub: [Sasivadhan163](https://github.com/Sasivadhan163)
 
 **Koushika Chappidi**  
 Master’s in Computer Science | Pace University  
-GitHub: [Sasivadhan163](https://github.com/koushikachappidi-3)
+GitHub: [koushikachappidi-3](https://github.com/koushikachappidi-3)
+
