@@ -1,102 +1,208 @@
-# 🧠 Student Stress Analysis
+🏡 Housing Price Prediction Using Machine Learning
 
-### 📘 **Project Overview**
-This project explores factors influencing student stress levels using data collected from 106 student responses.  
-Each factor (such as sleep quality, study load, and academic performance) is rated on a scale of **1 to 5**, with **stress level** as the target variable.  
+This project analyzes a large U.S. housing dataset and builds machine learning models to predict home prices using property features, geographic information, and socioeconomic factors.
 
-The analysis involves:
-- Cleaning and preprocessing the dataset  
-- Performing **Exploratory Data Analysis (EDA)** using visualizations  
-- Interpreting relationships between different factors and stress levels  
+It includes data cleaning, exploratory data analysis (EDA), feature engineering, model training, model comparison, and interpretable insights.
 
----
+<br>
+📁 Dataset Overview
 
-### 🎯 **Objective**
-To identify which factors most strongly affect student stress levels and uncover actionable insights that can help improve academic well-being.
+The dataset contains 39,000+ homes across the U.S., with features including:
 
----
+Beds
 
-### 🧩 **Dataset Description**
+Baths
 
-| Column | Description |
-|---------|--------------|
-| `sleep_quality` 😴 | Self-rated sleep quality (1 = poor, 5 = excellent) |
-| `headaches_per_week` 🤕 | Frequency of headaches per week |
-| `academic_performance` 👩‍🎓 | Self-rated academic performance |
-| `study_load` | Perceived workload intensity |
-| `extracurricular_freq` 🎾 | Frequency of extracurricular activities |
-| `stress_level` | Overall perceived stress level (target variable) |
+Living Space (sq ft)
 
-- Total entries: **106**  
-- Missing values: **0**  
-- Duplicates: **Removed**  
-- Data type: All numeric (1–5 ordinal scale)
+Median Household Income
 
----
+Zip Code Population
 
-### 📊 **Exploratory Data Analysis (EDA)**
+Zip Code Density
 
-#### 1️⃣ Univariate Analysis
-Count plots show how each variable is distributed across responses:
-- Most students report **moderate sleep quality** and **average academic performance**.
-- **Stress levels** are evenly spread, allowing balanced analysis.
-- **Study load** tends to skew slightly toward higher values.
+Latitude / Longitude
 
-#### 2️⃣ Bivariate Analysis
-Boxplots reveal how stress level changes with other factors:
+City
 
-| Factor | Relationship | Interpretation |
-|--------|---------------|----------------|
-| **Sleep Quality** | Negative | Poor sleep correlates with higher stress. |
-| **Headaches per Week** | Positive (non-linear) | Headache frequency generally rises with stress, slight dip at level 4. |
-| **Academic Performance** | Negative | High stress corresponds to lower academic performance. |
-| **Study Load** | Positive | Heavier workload strongly increases stress. |
-| **Extracurricular Frequency** | Weak Negative | Students with more extracurriculars report slightly less stress. |
+County
 
----
+State
 
-### 🌡️ **Correlation Heatmap**
-| Feature | Correlation with Stress | Relationship |
-|----------|------------------------|---------------|
-| **Study Load** | **+0.39** | Most influential factor on stress |
-| **Sleep Quality** | **–0.17** | Poor sleep = higher stress |
-| **Academic Performance** | +0.06 | Weak correlation |
-| **Headaches per Week** | –0.07 | Slightly negative / non-linear |
-| **Extracurricular Frequency** | +0.05 | Minimal relationship |
+Target variable: Price
 
-🧠 **Insight:**  
-> Study load has the strongest positive correlation with stress, while sleep quality shows a mild negative relationship. Other variables have limited influence individually.
+<br>
+🧹 Data Cleaning
 
----
+Removed 962 duplicate rows
 
-### 📈 **Key Insights**
-- Heavy **study load** is the top contributor to stress.  
-- **Sleep quality** and **headache frequency** also play meaningful roles.  
-- **Academic performance** declines as stress increases.  
-- Students with **higher extracurricular activity** levels show slightly lower stress.  
+Fixed missing values (median imputation)
 
----
+Verified correct data types
 
-### 🧮 **Tools & Libraries Used**
-- **Python 3.13**  
-- **pandas**, **numpy** — Data cleaning & preprocessing  
-- **matplotlib**, **seaborn** — Data visualization  
-- *(Optional upcoming)*: **scikit-learn** — for predictive modeling  
+Examined and handled outliers
 
----
+Cleaned text/categorical columns
 
-### 🔜 **Next Steps**
-- Encode categorical variables (if any)
-- Build predictive models (Random Forest, Logistic Regression)
-- Evaluate accuracy, confusion matrix, and feature importance
+Ensured dataset readiness for modeling
 
----
+<br>
+📊 Exploratory Data Analysis (EDA)
 
-### 💬 **Conclusion**
-The analysis shows that academic workload and poor sleep habits are major drivers of student stress.  
-By managing study load and promoting better sleep routines, institutions can help reduce stress and improve student performance and well-being.
+Visualizations included:
 
----
+Price distribution (raw + log)
+
+Scatter plots:
+
+Living Space vs Price
+
+Median Income vs Price
+
+Baths / Beds vs Price
+
+Correlation heatmap
+
+Geographic feature distributions
+
+<br>
+Key EDA Findings
+
+Home prices are heavily right-skewed → log transform improves clarity
+
+Strongest correlations:
+✔ Living Space
+✔ Baths
+✔ Median Household Income
+
+Weakest correlations:
+✖ Zip Code Population
+✖ Zip Code Density
+
+Location (City, County, State) has tremendous influence on price
+
+<br>
+🛠 Feature Engineering
+
+One-hot encoded categorical features (City, County, State → ~300+ new columns)
+
+Dropped non-predictive columns (Address, Zip Code)
+
+Scaled numeric features with StandardScaler
+
+Final dataset contained ~370 engineered features
+
+<br>
+🤖 Machine Learning Models
+
+Two supervised regression models were built and compared:
+
+1️⃣ Random Forest Regressor
+
+Strong baseline model
+
+Handles nonlinear patterns well
+
+Provides feature importance
+
+Good performance but limited on high variance data
+
+2️⃣ XGBoost Regressor (Best Model)
+
+Gradient boosting algorithm
+
+Builds trees sequentially, correcting errors
+
+More powerful than Random Forest
+
+Handles complex interactions + outliers
+
+Improved MAE, RMSE, and MAPE
+
+Better generalization
+
+<br>
+📈 Model Performance
+Metric	Random Forest	XGBoost
+MAE	~173k	Lower
+RMSE	~629k	Lower
+MAPE	~35%	Lower
+Notes	Baseline	Best model overall
+
+XGBoost outperformed RandomForest in all metrics.
+
+<br>
+🔍 Feature Importance Findings
+
+Top predictors of home price:
+
+Living Space
+
+Median Household Income
+
+Baths
+
+Latitude / Longitude
+
+Top City & County Encodings
+
+This aligns with real estate fundamentals:
+⭐ Size + Location are the core determinants of price.
+
+<br>
+📉 Actual vs Predicted Analysis
+
+Lower-priced homes predicted accurately (tight clustering)
+
+Spread widens for extremely expensive properties (normal for housing markets)
+
+XGBoost consistently narrows error margins
+
+<br>
+🧠 Conclusion
+
+This project demonstrates how machine learning can be applied to real-estate price prediction through:
+
+robust data cleaning
+
+smart feature engineering
+
+strong modeling techniques
+
+effective model comparison
+
+interpretable results
+
+Final Selected Model:
+🔥 XGBoost Regressor — highest accuracy and best generalization.
+
+<br>
+🚀 Future Enhancements
+
+Hyperparameter tuning for XGBoost
+
+SHAP for model explainability
+
+Price range segmentation (low / mid / luxury)
+
+Geospatial analysis (distance to city center, highways, etc.)
+
+Interactive dashboard (Streamlit)
+
+<br>
+📎 Technologies Used
+
+Python
+
+Pandas & NumPy
+
+Scikit-Learn
+
+XGBoost
+
+Matplotlib & Seaborn
+
+Jupyter Notebook
 
 ### 👨‍💻 **Author**
 **Sasivadhan Kandregula**  
